@@ -21,13 +21,36 @@
     </head>
 
     <body>
-        <h1>Random dogs!</h1>
-        <img alt="Random dog images" />
-        <br />
-        <button>REFRESH</button>
+        <h1>Dogs App!</h1>
+        <p id="error"></p>
+        <!-- Random dogs -->
+        <section class="random-dogs">
+            <h2>Random dogs</h2>
+            <article>
+                <img id="img1"  alt="Random dog">
+                <br />
+                <button id="btn1">SAVE TO FAVORITES</button>    
+            </article>
+            <br />
+            <article>
+                <img id="img2"  alt="Random dog">
+                <br />
+                <button id="btn2">SAVE TO FAVORITES</button>    
+            </article>
+            <br />
+            <button id="refresh">REFRESH</button>
+        </section>
+
+        <!-- Favorite dogs -->
+        <section class="favorite-dogs">
+            <h2>Favorite dogs</h2>
+            <article id="favorite-container" style="display: grid; gap: 10px; grid-template-columns: repeat(5,1fr);">
+            </article>
+        </section>
+
         <!-- Some scripts -->
-        <script type="module" src="./modulos.js"></script>
-        <script type="module" src="./main.js"></script>
+        <script type="module" src="modulos.js"></script>
+        <script type="module" src="main.js"></script>
     </body>
 
 </html>
