@@ -3,8 +3,8 @@ import dogs from "./modulos.js";
 
 /**General settings | Comment if you do not need some or all of them */
 const { log, error, warn, time, group, groupEnd } = console;
-const API_KEY = "live_3XFoMe0gwv1yUbucvdtWDLWsn6ZItSOK8NFa1zHBdHtwH98tkx7oIwNeSyHEcYKu";
 const API_SEARCH = `https://api.thedogapi.com/v1/images/search?limit=2`;
+const API_UPLOAD = `https://api.thedogapi.com/v1/images/upload`;
 const API_FAV = `https://api.thedogapi.com/v1/favourites`;
 
 const $btnRefresh = document.getElementById('refresh'),
@@ -13,6 +13,7 @@ const $btnRefresh = document.getElementById('refresh'),
     $favImgCont = document.getElementById('favorite-container'),
     $fragment = document.createDocumentFragment(),
     $error = document.getElementById('error'),
+    $btnUpload = document.getElementById('btn-upload'),
     $getAll = document.querySelectorAll('img');
 
 //Default imgs
@@ -115,5 +116,29 @@ async function deleteFav(id) {
     }
 }
 
+$btnUpload.addEventListener('click', async _ => {
+    try {
+        const form = document.getElementById('form');
+        const formData = new FormData(form);
+        log(formData.get('file'));
+        const response = await fetch(API_UPLOAD, {
+            method: 'POST',
+            headers: {
+                // 'Content-Type': 'multipart/form-data', no need this part
+                'x-api-key': API_KEY,
+            },
+            body: formData,
+        });
+        const json = await response.json();
+        log(json.url);
+        if (!response.ok) throw { message: json.message }
+        else log('Dog photo uploaded!')
+    } catch (error) {
+        $error.innerText = `Hubo un error: ${error.message}.`;
+    }
+});
+
+/**TODO Add preview imgs
+ * Create my own fetch like data structures
+ */
 loadFav();
-// $btnRefresh.onclick = () => reloadDogs();
